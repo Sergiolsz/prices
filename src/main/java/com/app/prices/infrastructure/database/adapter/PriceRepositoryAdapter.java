@@ -20,8 +20,9 @@ public class PriceRepositoryAdapter implements PriceRepositoryPort {
     public Optional<Price> findProductPrice(Long brandId, Long productId,
             LocalDateTime applicationDate) {
 
-        return priceRepository.findFirstApplicablePrice(productId, brandId, applicationDate)
+        return priceRepository.findApplicablePrices(productId, brandId, applicationDate)
+                .stream()
+                .findFirst()
                 .map(priceEntityMapper::entityToPrice);
     }
-
 }
